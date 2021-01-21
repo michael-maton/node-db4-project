@@ -33,4 +33,14 @@ server.get("/api/recipes/:id/instructions", (req, res) => {
         })
 })
 
+server.get("/api/ingredients/:id/recipes", (req, res) => {
+    Data.getRecipesByIngredients(req.params.id)
+        .then((recipes) => {
+            res.status(200).json(recipes)
+        })
+        .catch((err) => {
+            res.status(500).json({ error: err.message })
+        })
+})
+
 module.exports = server;
