@@ -37,7 +37,19 @@ In addition to the `migrations` and `seeding` scripts, write a data access file 
 
 - `getRecipes()`: should return a list of all recipes in the database.
 - `getShoppingList(recipe_id)`: should return a list of all ingredients and quantities for a given recipe
+        select
+            ingredient_name as Ingredient, quantity as Quantity
+        from recipe_ingredients as r
+        join ingredients as i
+            on r.ingredient_id = i.ingredient_id
+        where recipe_id = 1
 - `getInstructions(recipe_id)`: should return a list of step by step instructions for preparing a recipe
+        select
+            step_number as Step, instruction_text as Instruction
+        from instructions as i
+        join recipes as r
+            on i.recipe_id = r.recipe_id
+        where r.recipe_id = 1
 
 Organize and name your files anyway you see fit.
 
@@ -49,6 +61,13 @@ Build the following endpoints. Write any additional data access helpers as neede
 - `GET /api/recipes/:id/shoppingList`: a list of ingredients and quantites for a single recipe
 - `GET /api/recipes/:id/instructions`: a correctly ordered list of how to prepare a single recipe
 - `GET /api/ingredients/:id/recipes`: all recipes in the system that utilize a single ingredient 
+
+        select
+            recipe_name
+        from recipe_ingredients as i
+        join recipes as r
+            on i.recipe_id = r.recipe_id
+        where i.ingredient_id = 1
 
 ## Submission format
 
